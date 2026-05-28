@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ทายผลฟุตบอลโลก 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Barlow',sans-serif;background:#0a1628;min-height:100vh;color:#fff;overflow-x:hidden;}
+
+  .pitch-bg{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.06;}
+
+  .hero{position:relative;z-index:1;text-align:center;padding:3rem 1rem 2rem;}
+  .hero-badge{display:inline-block;background:linear-gradient(135deg,#c9a227,#f0d060);color:#0a1628;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:5px 18px;border-radius:20px;margin-bottom:14px;}
+  .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,5rem);letter-spacing:5px;line-height:1;color:#fff;text-shadow:0 0 60px rgba(201,162,39,0.4);margin-bottom:8px;}
+  .hero-title span{color:#c9a227;}
+  .hero-sub{font-family:'Barlow Condensed',sans-serif;font-size:1rem;color:rgba(255,255,255,0.45);letter-spacing:3px;text-transform:uppercase;}
+
+  .form-card{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 1.25rem 4rem;}
+
+  .name-section{background:rgba(255,255,255,0.05);border:1px solid rgba(201,162,39,0.35);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.75rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+  .name-section label{font-family:'Barlow Condensed',sans-serif;font-size:0.82rem;letter-spacing:2px;text-transform:uppercase;color:#c9a227;white-space:nowrap;font-weight:700;}
+  .name-section input{flex:1;min-width:200px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:#fff;font-family:'Barlow',sans-serif;font-size:1rem;padding:10px 14px;outline:none;transition:border-color 0.2s;}
+  .name-section input:focus{border-color:#c9a227;}
+  .name-section input::placeholder{color:rgba(255,255,255,0.3);}
+
+  .progress-wrap{margin-bottom:1.75rem;}
+  .progress-label{font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;letter-spacing:1px;color:rgba(255,255,255,0.4);margin-bottom:7px;display:flex;justify-content:space-between;}
+  .progress-bar{height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,#c9a227,#f0d060);border-radius:2px;transition:width 0.3s;width:0%;}
+
+  .matches-grid{display:grid;gap:9px;}
+
+  .section-header{display:flex;align-items:center;gap:10px;margin:1.75rem 0 0.85rem;}
+  .section-line{flex:1;height:1px;background:rgba(255,255,255,0.08);}
+  .section-label{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);font-weight:700;white-space:nowrap;}
+
+  .match-row{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;display:grid;grid-template-columns:28px 1fr 44px 28px 44px 1fr;align-items:center;gap:8px;padding:9px 13px;transition:background 0.15s,border-color 0.15s;}
+  .match-row:hover{background:rgba(255,255,255,0.07);border-color:rgba(201,162,39,0.2);}
+  .match-num{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;color:rgba(255,255,255,0.2);text-align:center;}
+  .team-name{font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.82);letter-spacing:0.2px;}
+  .team-home{text-align:right;}
+  .team-away{text-align:left;}
+
+  .score-select{appearance:none;-webkit-appearance:none;background:rgba(10,22,40,0.85);border:1.5px solid rgba(201,162,39,0.35);border-radius:8px;color:#aaa;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1px;width:44px;height:44px;text-align:center;cursor:pointer;transition:border-color 0.2s,color 0.2s;padding:0;}
+  .score-select:focus{outline:none;border-color:#c9a227;background:rgba(201,162,39,0.08);}
+  .score-select option{background:#0a1628;color:#fff;}
+  .score-select.filled{border-color:#c9a227;color:#f0d060;}
+
+  .vs-badge{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,0.2);padding:2px 5px;border:1px solid rgba(255,255,255,0.09);border-radius:4px;text-align:center;}
+
+  .submit-btn{display:block;width:100%;margin-top:2.5rem;padding:18px;background:linear-gradient(135deg,#c9a227,#f0d060);border:none;border-radius:14px;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:5px;color:#0a1628;cursor:pointer;transition:opacity 0.2s,transform 0.1s;}
+  .submit-btn:hover{opacity:0.9;}
+  .submit-btn:active{transform:scale(0.99);}
+  .submit-btn:disabled{opacity:0.35;cursor:not-allowed;}
+
+  .status-msg{text-align:center;margin-top:1rem;font-size:0.92rem;min-height:26px;font-weight:500;}
+  .status-msg.ok{color:#6ddb8e;}
+  .status-msg.err{color:#f07070;}
+  .status-msg.info{color:#c9a227;}
+
+  @media(max-width:500px){
+    .match-row{grid-template-columns:22px 1fr 40px 22px 40px 1fr;gap:5px;padding:8px 9px;}
+    .team-name{font-size:0.7rem;}
+    .score-select{width:40px;height:40px;font-size:1.1rem;}
+  }
+</style>
+</head>
+<body>
+
+<svg class="pitch-bg" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="600" fill="none" stroke="white" stroke-width="3"/>
+  <rect x="100" y="80" width="700" height="440" fill="none" stroke="white" stroke-width="2"/>
+  <line x1="450" y1="80" x2="450" y2="520" stroke="white" stroke-width="2"/>
+  <circle cx="450" cy="300" r="90" fill="none" stroke="white" stroke-width="2"/>
+  <circle cx="450" cy="300" r="6" fill="white"/>
+  <rect x="100" y="190" width="100" height="220" fill="none" stroke="white" stroke-width="2"/>
+  <rect x="700" y="190" width="100" height="220" fill="none" stroke="white" stroke-width="2"/>
+  <rect x="100" y="235" width="50" height="130" fill="none" stroke="white" stroke-width="2"/>
+  <rect x="750" y="235" width="50" height="130" fill="none" stroke="white" stroke-width="2"/>
+  <path d="M 190 190 Q 240 300 190 410" fill="none" stroke="white" stroke-width="2"/>
+  <path d="M 710 190 Q 660 300 710 410" fill="none" stroke="white" stroke-width="2"/>
+</svg>
+
+<div class="hero">
+  <div class="hero-badge">⚽ FIFA WORLD CUP 2026</div>
+  <h1 class="hero-title">ทาย<span>ผล</span>ฟุตบอลโลก</h1>
+  <p class="hero-sub">Group Stage &nbsp;·&nbsp; 72 Matches &nbsp;·&nbsp; 2026</p>
+</div>
+
+<div class="form-card">
+  <div class="name-section">
+    <label>ชื่อผู้ทายผล</label>
+    <input type="text" id="predictor-name" placeholder="กรอกชื่อของคุณ..." autocomplete="off"/>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>ความคืบหน้า</span>
+      <span id="progress-text">0 / 72 คู่</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="matches-grid" id="matches-grid"></div>
+
+  <button class="submit-btn" id="submit-btn" onclick="submitForm()">⚽ บันทึกผลการทาย</button>
+  <div class="status-msg" id="status-msg"></div>
+</div>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFDIsc0B3B2D4NBpZ4BAZ9ZSKTFrNmFBpzPfDvDX8m4i7KdjsoNxzK2E62aHTJJUXZZQ/exec';
+
+const matches = [
+  [1,"Mexico","South Africa"],[2,"South Korea","Czechia"],[3,"Canada","Bosnia and Herzegovina"],[4,"USA","Paraguay"],[5,"Australia","Turkey"],[6,"Qatar","Switzerland"],[7,"Brazil","Morocco"],[8,"Haiti","Scotland"],[9,"Germany","Curacao"],[10,"Netherlands","Japan"],[11,"Ivory Coast","Ecuador"],[12,"Sweden","Tunisia"],
+  [13,"Spain","Cape Verde"],[14,"Belgium","Egypt"],[15,"Saudi Arabia","Uruguay"],[16,"Iran","New Zealand"],[17,"Austria","Jordan"],[18,"France","Senegal"],[19,"Iraq","Norway"],[20,"Argentina","Algeria"],[21,"Portugal","DR Congo"],[22,"England","Croatia"],[23,"Ghana","Panama"],[24,"Uzbekistan","Colombia"],
+  [25,"Czechia","South Africa"],[26,"Switzerland","Bosnia and Herzegovina"],[27,"Canada","Qatar"],[28,"Mexico","South Korea"],[29,"Turkey","Paraguay"],[30,"USA","Australia"],[31,"Scotland","Morocco"],[32,"Brazil","Haiti"],[33,"Tunisia","Japan"],[34,"Netherlands","Sweden"],[35,"Germany","Ivory Coast"],[36,"Ecuador","Curacao"],
+  [37,"Spain","Saudi Arabia"],[38,"Belgium","Iran"],[39,"Uruguay","Cape Verde"],[40,"New Zealand","Egypt"],[41,"Argentina","Austria"],[42,"France","Iraq"],[43,"Norway","Senegal"],[44,"Jordan","Algeria"],[45,"Portugal","Uzbekistan"],[46,"England","Ghana"],[47,"Panama","Croatia"],[48,"Colombia","DR Congo"],
+  [49,"Switzerland","Canada"],[50,"Bosnia and Herzegovina","Qatar"],[51,"Scotland","Brazil"],[52,"Morocco","Haiti"],[53,"Czechia","Mexico"],[54,"South Africa","South Korea"],[55,"Ecuador","Germany"],[56,"Curacao","Ivory Coast"],[57,"Japan","Sweden"],[58,"Tunisia","Netherlands"],[59,"Turkey","USA"],[60,"Paraguay","Australia"],
+  [61,"Norway","France"],[62,"Senegal","Iraq"],[63,"Uruguay","Spain"],[64,"Cape Verde","Saudi Arabia"],[65,"Egypt","Iran"],[66,"New Zealand","Belgium"],[67,"Panama","England"],[68,"Croatia","Ghana"],[69,"Colombia","Portugal"],[70,"DR Congo","Uzbekistan"],[71,"Algeria","Austria"],[72,"Jordan","Argentina"]
+];
+
+const roundLabels = {
+  1:"รอบแบ่งกลุ่ม — สัปดาห์ที่ 1 (คู่ที่ 1–24)",
+  25:"รอบแบ่งกลุ่ม — สัปดาห์ที่ 2 (คู่ที่ 25–48)",
+  49:"รอบแบ่งกลุ่ม — สัปดาห์ที่ 3 (คู่ที่ 49–72)"
+};
+
+const grid = document.getElementById('matches-grid');
+const opts = '<option value="" selected>-</option>' + Array.from({length:10},(_,i)=>`<option value="${i}">${i}</option>`).join('');
+
+matches.forEach(([num,home,away])=>{
+  if(roundLabels[num]){
+    const s=document.createElement('div');
+    s.className='section-header';
+    s.innerHTML=`<div class="section-line"></div><div class="section-label">${roundLabels[num]}</div><div class="section-line"></div>`;
+    grid.appendChild(s);
+  }
+  const row=document.createElement('div');
+  row.className='match-row';
+  row.id=`match-${num}`;
+  row.innerHTML=`
+    <div class="match-num">${num}</div>
+    <div class="team-name team-home">${home}</div>
+    <select class="score-select" id="h-${num}" onchange="updateProgress()">${opts}</select>
+    <div class="vs-badge">vs</div>
+    <select class="score-select" id="a-${num}" onchange="updateProgress()">${opts}</select>
+    <div class="team-name team-away">${away}</div>
+  `;
+  grid.appendChild(row);
+});
+
+function updateProgress(){
+  let filled=0;
+  matches.forEach(([num])=>{
+    const h=document.getElementById(`h-${num}`).value;
+    const a=document.getElementById(`a-${num}`).value;
+    if(h!==''&&a!=='')filled++;
+    document.getElementById(`h-${num}`).className='score-select'+(h!==''?' filled':'');
+    document.getElementById(`a-${num}`).className='score-select'+(a!==''?' filled':'');
+  });
+  const pct=Math.round((filled/72)*100);
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('progress-text').textContent=`${filled} / 72 คู่`;
+}
+
+async function submitForm(){
+  const name=document.getElementById('predictor-name').value.trim();
+  if(!name){showStatus('กรุณากรอกชื่อผู้ทายผล','err');document.getElementById('predictor-name').focus();return;}
+
+  const missing=matches.filter(([num])=>{
+    return document.getElementById(`h-${num}`).value===''||document.getElementById(`a-${num}`).value==='';
+  });
+  if(missing.length>0){
+    showStatus(`ยังกรอกไม่ครบ — เหลืออีก ${missing.length} คู่`,'err');
+    document.getElementById(`match-${missing[0][0]}`).scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+
+  const btn=document.getElementById('submit-btn');
+  btn.disabled=true;
+  showStatus('กำลังบันทึกข้อมูล...','info');
+
+  const row=[name];
+  matches.forEach(([num,home,away])=>{
+    const h=document.getElementById(`h-${num}`).value;
+    const a=document.getElementById(`a-${num}`).value;
+    row.push(`${h}-${a}`);
+  });
+
+  try{
+    await fetch(APPS_SCRIPT_URL,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({row})
+    });
+    showStatus('✓ บันทึกผลการทายเรียบร้อยแล้ว!','ok');
+    btn.textContent='✓ บันทึกแล้ว';
+  }catch(e){
+    showStatus('เกิดข้อผิดพลาด: '+e.message,'err');
+    btn.disabled=false;
+  }
+}
+
+function showStatus(msg,type){
+  const el=document.getElementById('status-msg');
+  el.textContent=msg;
+  el.className='status-msg '+type;
+}
+</script>
+</body>
+</html>
