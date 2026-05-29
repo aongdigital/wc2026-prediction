@@ -192,11 +192,12 @@ async function submitForm(){
   });
 
   try{
+    const formData = new FormData();
+    formData.append('data', JSON.stringify(row));
     await fetch(APPS_SCRIPT_URL,{
       method:'POST',
       mode:'no-cors',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({row})
+      body: formData
     });
     showStatus('✓ บันทึกผลการทายเรียบร้อยแล้ว!','ok');
     btn.textContent='✓ บันทึกแล้ว';
